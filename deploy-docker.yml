@@ -10,7 +10,7 @@
     - name: Start the container
       docker_container:
         name: hariapp
-        image: "nadhil/grafana:{{DOCKER_TAG}}"
+        image: "nadhil/devop:{{DOCKER_TAG}}"
         state: started
         published_ports:
           0.0.0.0:8088:8088
