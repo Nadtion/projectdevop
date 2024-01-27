@@ -13,7 +13,7 @@ pipeline{
         
         stage('Docker Build'){
             steps{
-                sh "docker build . -t nadhil/grafana:${DOCKER_TAG} "
+                sh "docker build . -t nadhil/devop:${DOCKER_TAG}"
             }
         }
         
@@ -23,7 +23,7 @@ pipeline{
                     sh "docker login -u nadhil -p ${dockerHubPwd}"
                 }
                 
-                sh "docker push nadhil/grafana:${DOCKER_TAG} "
+                sh "docker push nadhil/devop:${DOCKER_TAG} "
             }
         }
         
