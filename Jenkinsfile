@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    tools {
+      maven 'maven3'
+    }
     environment {
       DOCKER_TAG = getVersion()
     }
@@ -7,9 +10,10 @@ pipeline{
         stage('SCM'){
             steps{
                 git credentialsId: 'github', 
-                    url: 'https://github.com/Nadtion/projectdevop'
+                    url: 'https://github.com/javahometech/dockeransiblejenkins'
             }
         }
+        
         stage('Maven Build'){
             steps{
                 sh "mvn clean package"
@@ -18,17 +22,17 @@ pipeline{
         
         stage('Docker Build'){
             steps{
-                sh "docker build . -t nadhil/hariapp:${DOCKER_TAG}"
+                sh "docker build . -t kammana/hariapp:${DOCKER_TAG} "
             }
         }
         
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u nadhil -p ${dockerHubPwd}"
+                    sh "docker login -u kammana -p ${dockerHubPwd}"
                 }
                 
-                sh "docker push nadhil/hariapp:${DOCKER_TAG} "
+                sh "docker push kammana/hariapp:${DOCKER_TAG} "
             }
         }
         
