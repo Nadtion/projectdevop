@@ -10,6 +10,11 @@ pipeline{
                     url: 'https://github.com/Nadtion/projectdevop'
             }
         }
+        stage('Maven Build'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
         
         stage('Docker Build'){
             steps{
